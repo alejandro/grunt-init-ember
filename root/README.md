@@ -3,7 +3,14 @@
 {%= description %}
 
 ## Documentation
-_(Coming soon)_
+
+For templates, add "_" to simulate "/" and doble "__" to simulate partials
+
+"post_index" -> post/route
+"post__partial" -> post/_partial
+
+Run `grunt` to compile, and in another terminal start the server. The templates
+are compiled on change.
 
 ## Examples
 _(Coming soon)_

@@ -1,48 +1,50 @@
 'use strict';
 
 module.exports = function(grunt) {
-
+  
+  var path = require('path'), server
   // Project configuration.
   grunt.initConfig({
-    nodeunit: {
-      files: ['test/**/*_test.js'],
+    watch:{
+       ember_templates: {
+         files: 'app/templates/**/*.hbs',
+         tasks: ['ember_templates']
+       }
     },
-    jshint: {
+    ember_templates:{
+      compile: {
+        options: {
+          templateName: function (sourceFile) {
+            return sourceFile.replace(/app\/templates\//, '')
+                             .replace(/\.hbs$/, '')
+                             .replace(/\_/, '/')
+          }
+        },
+        files: {
+          'app/scripts/templates.js': 'app/templates/**/*.hbs'
+        }
+      }
+    },
+    concat: {
       options: {
-        jshintrc: '.jshintrc'
+        separator: ';'
       },
-      gruntfile: {
-        src: 'Gruntfile.js'
+      dist: {
+        src: ['app/scripts/**/*.js'],
+        dest: 'app/build/{%= js_safe_name %}.js'
       },
-      lib: {
-        src: ['lib/**/*.js']
-      },
-      test: {
-        src: ['test/**/*.js']
-      },
-    },
-    watch: {
-      gruntfile: {
-        files: '<%= jshint.gruntfile.src %>',
-        tasks: ['jshint:gruntfile']
-      },
-      lib: {
-        files: '<%= jshint.lib.src %>',
-        tasks: ['jshint:lib', 'nodeunit']
-      },
-      test: {
-        files: '<%= jshint.test.src %>',
-        tasks: ['jshint:test', 'nodeunit']
-      },
-    },
-  });
+      all:{
+        src: ['app/vendor/**/*.js', 'app/scripts/**/*.js'],
+        dest: 'app/build/{%= js_safe_name %}-all.js'
+      }
+    }
+  })
 
-  // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-nodeunit');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
 
-  // Default task.
-  grunt.registerTask('default', ['jshint', 'nodeunit']);
+  grunt.loadNpmTasks('grunt-contrib-watch')
+  grunt.loadNpmTasks('grunt-contrib-concat')
+  grunt.loadNpmTasks('grunt-ember-templates')
 
-};
+  grunt.registerTask('default', ['watch', 'ember_templates'])
+
+}

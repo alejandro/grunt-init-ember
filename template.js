@@ -9,7 +9,7 @@
 'use strict';
 
 // Basic template description.
-exports.description = 'Create a Node.js app, including Nodeunit unit tests.';
+exports.description = 'Generates all the resources that are necessary to start working with Ember';
 
 // Template-specific notes to be displayed before question prompts.
 exports.notes = '_Project name_ shouldn\'t contain "node" or "js" and should ' +
@@ -17,7 +17,9 @@ exports.notes = '_Project name_ shouldn\'t contain "node" or "js" and should ' +
 
 // Template-specific notes to be displayed after question prompts.
 exports.after = 'You should now install project dependencies with _npm ' +
-  'install_. After that, you may execute project tasks with _grunt_. For ' +
+  'install_ and later _grunt ember\_templates_ to compile the templates.\n'+
+  ' Too keep updated you templates just run _grunt_.\n\n' +
+  ' After that, you may execute project tasks with _grunt_. For ' +
   'more information about installing and configuring Grunt, please see ' +
   'the Getting Started guide:' +
   '\n\n' +
@@ -45,14 +47,12 @@ exports.template = function(grunt, init, done) {
     init.prompt('npm_test', 'grunt nodeunit')
   ], function(err, props) {
     props.keywords = [];
-    props.dependencies = {
-      'ecstatic': "~0.4.0"
-    };
     props.main = 'server/index';
     props.devDependencies = {
-      'grunt-contrib-jshint': '~0.1.1',
-      'grunt-contrib-nodeunit': '~0.1.2',
-      'grunt-contrib-watch': '~0.2.0',
+      "grunt": "~0.4.1",
+      "grunt-contrib-concat": "~0.1.3",
+      "grunt-contrib-watch": "~0.3.1",
+      "grunt-ember-templates": "~0.4.3"
     };
     props.scripts =  {
       'start': props.main

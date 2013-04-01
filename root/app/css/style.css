@@ -1,11 +1,28 @@
-body {
-  padding: 20px;
-  margin: 0 auto;
-  width: 600px;
-  font-family: Helvetica, Arial;
+/* Put your CSS here */
+html, body {
+    margin: 20px;
 }
 
+.wrapper {
+  width: 600px;
+  margin: 0 auto;
+}
 
-h1 {
+header {
+  display: block;
   text-align: center;
 }
+
+header h1 {
+  margin-bottom: 0px;
+}
+
+.left {
+  width: 200px;
+  display: inline-block;
+}
+.right {
+  width: 300px;
+  display: inline-block;
+}
+
