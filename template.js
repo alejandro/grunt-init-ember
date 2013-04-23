@@ -31,7 +31,7 @@ exports.warnOn = '*';
 // The actual init template.
 exports.template = function(grunt, init, done) {
 
-  init.process({type: 'nodeapp'}, [
+  init.process({type: 'ember app'}, [
     // Prompt for these values.
     init.prompt('name'),
     init.prompt('description'),
@@ -48,6 +48,9 @@ exports.template = function(grunt, init, done) {
   ], function(err, props) {
     props.keywords = [];
     props.main = 'server/index';
+    props.dependencies = {
+      "express": "3.0.x"
+    }
     props.devDependencies = {
       "grunt": "~0.4.1",
       "grunt-contrib-concat": "~0.1.3",

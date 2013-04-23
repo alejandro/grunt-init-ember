@@ -9,6 +9,10 @@ module.exports = function(grunt) {
        ember_templates: {
          files: 'app/templates/**/*.hbs',
          tasks: ['ember_templates']
+       },
+       js: {
+        files: 'app/scripts/**/*.js',
+        tasks: ['concat:dist']
        }
     },
     ember_templates:{
@@ -30,7 +34,7 @@ module.exports = function(grunt) {
         separator: ';'
       },
       dist: {
-        src: ['app/scripts/**/*.js'],
+        src: ['app/scripts/**/*.js', '!app/scripts/templates.js'],
         dest: 'app/build/{%= js_safe_name %}.js'
       },
       all:{
