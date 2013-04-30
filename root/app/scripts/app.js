@@ -3,7 +3,18 @@ var App = Em.Application.create({
 });
 
 // wait until data is loaded
-App.deferReadiness();
+App.initializer({
+  name: 'data',
+  initialize: function (container){
+    App.deferReadiness();
+    $.get('/api/data.json', function (res){
+      res.data.forEach(function (item){
+        App.data.push(App.Item.create(item));
+      });
+      App.advanceReadiness();
+    });
+  }
+});
 
 App.Router.map(function(){
   this.resource('items', function (){
@@ -34,11 +45,4 @@ App.Item = Ember.Object.extend({
   name: null,
   link: null,
   description: null
-});
-
-$.get('/api/data.json', function (res){
-  res.data.forEach(function (item){
-    App.data.push(App.Item.create(item));
-  });
-  App.advanceReadiness();
 });
