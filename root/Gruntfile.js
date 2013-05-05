@@ -21,7 +21,7 @@ module.exports = function(grunt) {
           templateName: function (sourceFile) {
             return sourceFile.replace(/app\/templates\//, '')
                              .replace(/\.hbs$/, '')
-                             .replace(/\_/, '/')
+                             .replace(/(?!^_)(_)(?=_|\w){1}?/g, '/')
           }
         },
         files: {
